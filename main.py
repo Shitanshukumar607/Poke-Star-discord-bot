@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
   print("bot is ready")
 
-
+print("9")
 
 
 @bot.command()
