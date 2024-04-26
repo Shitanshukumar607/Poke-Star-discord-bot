@@ -9,6 +9,7 @@ packages = [{include = "repl_nix_poke_star_discord_bot"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 discord-py = "^2.3.2"
+mailru-im-bot = "^0.0.21"
 
 
 [build-system]

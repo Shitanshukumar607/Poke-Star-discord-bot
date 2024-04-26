@@ -1,10 +1,9 @@
 import discord
 from discord.ext import commands
-import os
+import bot_token
 import details
 
 
-my_secret = os.environ['BOT_TOKEN']
 
 intents = discord.Intents.all()
 
@@ -12,41 +11,25 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-  print("bot is ready")
+  print("bot is READY")
 
 
 
 @bot.event
 async def on_message(message):
+  
   if message.author.id == details.poketwo_id and "You received 35 Pokécoins!" in message.content:
-    await message.add_reaction(details.new_mon)
+    
+    await message.add_reaction(details.congrats_emoji)
+    await message.add_reaction(details.charmander_happy)
 
-
-  if message.author.id == 1047861461801762846 :
-    await message.add_reaction(details.emoji)
-
-
-
-
-
-
-
-
-
-
-
+  
+  await bot.process_commands(message)
 
 
 
 @bot.command()
-async def test(ctx):
-    message = await ctx.send('test')
-    await message.add_reaction(emoji)
+async def hello(ctx):
+  await ctx.send("hello")
 
-
-@bot.command()
-async def ping(ctx):
-  await ctx.send("Pong!")
-
-
-bot.run(my_secret)
+bot.run(bot_token.TOKEN)
