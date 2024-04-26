@@ -17,11 +17,19 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-  
+
+  # this is when a user catches a new Pokemon 
   if message.author.id == details.poketwo_id and "You received 35 Pokécoins!" in message.content:
-    
     await message.add_reaction(details.congrats_emoji)
     await message.add_reaction(details.charmander_happy)
+  #ends here
+
+
+  # this is when a user incenses its shiny chain
+  if message.author.id == details.poketwo_id and "+1 Shiny chain!" in message.content:
+    await message.add_reaction(details.shiny) 
+  #ends here
+  
 
   
   await bot.process_commands(message)
