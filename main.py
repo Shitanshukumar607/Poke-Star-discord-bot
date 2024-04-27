@@ -57,6 +57,6 @@ async def on_message(message):
 
 @bot.command()
 async def hello(ctx):
-  await ctx.send("hello")
+  await ctx.send("hellow")
 
 bot.run(bot_token.TOKEN)
