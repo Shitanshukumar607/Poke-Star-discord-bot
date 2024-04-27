@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import bot_token
 import details
-
+import asyncio
 
 
 intents = discord.Intents.all()
@@ -29,6 +29,25 @@ async def on_message(message):
   if message.author.id == details.poketwo_id and "+1 Shiny chain!" in message.content:
     await message.add_reaction(details.shiny) 
   #ends here
+
+
+  # this is when there's a shinn hunter
+  if message.author.id == details.pokename_id and "Shiny Hunt Pings" in message.content:
+
+    timer = await message.channel.send(embed= details.warn_embed)
+    await asyncio.sleep(5)
+    await timer.delete()
+    await message.channel.send(embed= details.catch_embed)
+
+
+
+  elif message.author.id == details.poke2assistant_id and "Shiny Hunt Pings" in message.content:
+    
+    timer = await message.channel.send(embed= details.warn_embed)
+    await asyncio.sleep(5)
+    await timer.delete()
+    await message.channel.send(embed= details.catch_embed)
+
   
 
   
