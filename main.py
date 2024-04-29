@@ -32,24 +32,57 @@ async def on_message(message):
 
 
   # this is when there's a shinn hunter
-  if message.author.id == details.pokename_id and "Shiny Hunt Pings" in message.content:
 
-    timer = await message.channel.send(embed= details.warn_embed)
-    await asyncio.sleep(5)
-    await timer.delete()
-    await message.channel.send(embed= details.catch_embed)
+  if "incense" in message.channel.name.lower():
 
+    if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
 
-
-  elif message.author.id == details.poke2assistant_id and "Shiny Hunt Pings" in message.content:
+      timer = await message.channel.send(embed = details.inc_warn_embed)
     
-    timer = await message.channel.send(embed= details.warn_embed)
-    await asyncio.sleep(5)
-    await timer.delete()
-    await message.channel.send(embed= details.catch_embed)
+      await asyncio.sleep(9)
+      await timer.delete()
+      await message.channel.send(embed= details.catch_embed)
+
+
+    elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
+
+
+
+
+    
+      timer = await message.channel.send(embed= details.inc_warn_embed)
+      await asyncio.sleep(9)
+      await timer.delete()
+      await message.channel.send(embed= details.catch_embed)
+
+
+  else:
+    
+    if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
+
+      timer = await message.channel.send(embed = details.warn_embed)
+    
+      await asyncio.sleep(25)
+      await timer.delete()
+      await message.channel.send(embed= details.catch_embed)
+
+
+
+    elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
+
+
+ 
+      timer = await message.channel.send(embed= details.warn_embed)
+    
+      await asyncio.sleep(25)
+      await timer.delete()
+      await message.channel.send(embed= details.catch_embed)
+
+
+    
+
 
   
-
   
   await bot.process_commands(message)
 
