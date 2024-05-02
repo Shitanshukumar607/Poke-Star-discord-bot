@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands,tasks
 from discord import app_commands
 import asyncio
-
+import details 
 
 
 past_message = None
@@ -14,13 +14,20 @@ spam_channel_2 = 1235593275143094294
 
 
 
+
 ping_channel_id = 1235590585298190459
 
 
 class spam(commands.Cog):
 
+  
+  
+  
   def __init__(self, bot):
+    
     self.bot = bot 
+    self.notified_spam1 = True
+    self.notified_spam2 = True
     self.spammer1.start(spam_channel_1)
     self.spammer2.start(spam_channel_2)
     
@@ -46,11 +53,13 @@ class spam(commands.Cog):
     print(past_message)
     print(new_message)
 
-    if past_message and new_message and past_message == new_message :
+    if past_message and new_message and past_message == new_message and self.notified_spam1 is True:
       
       await ping_channel.send(f"{spam_channel.mention} <@862021572026040350> no msg in the channel")
-    else: 
-      print("everything is fine")
+      self.notified_spam1 = False
+      
+    
+      
 
 
 
@@ -80,17 +89,24 @@ class spam(commands.Cog):
     print(past_message)
     print(new_message)
 
-    if past_message and new_message and past_message == new_message :
+    if past_message and new_message and past_message == new_message and self.notified_spam2 is True:
       
       await ping_channel.send(f"{spam_channel.mention} <@862021572026040350> no msg in the channel")
-    else: 
-      print("everything is fine")
+    
       
 
 
 
+  @commands.Cog.listener()
+  async def on_message(self, message):
+    if message.author.id == details.my_id and message.content == "Done1":
 
+      self.notified_spam1 = True
 
+    if message.author.id == details.my_id and message.content == "Done2":
+
+      self.notified_spam2 = True
+      
 
 
 
