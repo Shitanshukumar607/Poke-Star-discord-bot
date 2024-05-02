@@ -11,6 +11,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
+  await bot.load_extension("cog.spam")
   print("bot is READY")
 
 
@@ -45,10 +46,6 @@ async def on_message(message):
 
 
     elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
-
-
-
-
     
       timer = await message.channel.send(embed= details.inc_warn_embed)
       await asyncio.sleep(9)
@@ -57,6 +54,7 @@ async def on_message(message):
 
 
   else:
+
     
     if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
 
@@ -70,8 +68,6 @@ async def on_message(message):
 
     elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
 
-
- 
       timer = await message.channel.send(embed= details.warn_embed)
     
       await asyncio.sleep(25)
@@ -79,10 +75,6 @@ async def on_message(message):
       await message.channel.send(embed= details.catch_embed)
 
 
-    
-
-
-  
   
   await bot.process_commands(message)
 

@@ -1,0 +1,98 @@
+import discord 
+from discord.ext import commands,tasks
+from discord import app_commands
+import asyncio
+
+
+
+past_message = None
+new_message = None
+
+
+spam_channel_1 = 1223899187519688734
+spam_channel_2 = 1235593275143094294
+
+
+
+ping_channel_id = 1235590585298190459
+
+
+class spam(commands.Cog):
+
+  def __init__(self, bot):
+    self.bot = bot 
+    self.spammer1.start(spam_channel_1)
+    self.spammer2.start(spam_channel_2)
+    
+
+  
+  @tasks.loop(seconds=10)
+  async def spammer1(self, spam_channel_id):
+    
+    spam_channel = self.bot.get_channel(spam_channel_id)
+    ping_channel = self.bot.get_channel(ping_channel_id)
+
+
+    
+    async for message in spam_channel.history(limit = 1):
+      past_message = message.created_at
+
+    await asyncio.sleep(5)
+
+    
+    async for message in spam_channel.history(limit = 1):
+      new_message = message.created_at
+
+    print(past_message)
+    print(new_message)
+
+    if past_message and new_message and past_message == new_message :
+      
+      await ping_channel.send(f"{spam_channel.mention} <@862021572026040350> no msg in the channel")
+    else: 
+      print("everything is fine")
+
+
+
+
+
+
+
+
+  
+  @tasks.loop(seconds=10)
+  async def spammer2(self, spam_channel_id):
+    
+    spam_channel = self.bot.get_channel(spam_channel_id)
+    ping_channel = self.bot.get_channel(ping_channel_id)
+
+
+    
+    async for message in spam_channel.history(limit = 1):
+      past_message = message.created_at
+
+    await asyncio.sleep(5)
+
+    
+    async for message in spam_channel.history(limit = 1):
+      new_message = message.created_at
+
+    print(past_message)
+    print(new_message)
+
+    if past_message and new_message and past_message == new_message :
+      
+      await ping_channel.send(f"{spam_channel.mention} <@862021572026040350> no msg in the channel")
+    else: 
+      print("everything is fine")
+      
+
+
+
+
+
+
+
+
+async def setup(bot: commands.Bot):
+  await bot.add_cog(spam(bot))
