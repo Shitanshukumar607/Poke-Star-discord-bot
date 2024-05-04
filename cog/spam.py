@@ -22,7 +22,6 @@ class spam(commands.Cog):
 
   
   
-  
   def __init__(self, bot):
     
     self.bot = bot 
@@ -69,7 +68,7 @@ class spam(commands.Cog):
 
 
   
-  @tasks.loop(seconds=60)
+  @tasks.loop(seconds=10)
   async def spammer2(self, spam_channel_id):
     
     spam_channel = self.bot.get_channel(spam_channel_id)
@@ -80,7 +79,7 @@ class spam(commands.Cog):
     async for message in spam_channel.history(limit = 1):
       past_message = message.created_at
 
-    await asyncio.sleep(60)
+    await asyncio.sleep(5)
 
     
     async for message in spam_channel.history(limit = 1):
@@ -92,6 +91,7 @@ class spam(commands.Cog):
     if past_message and new_message and past_message == new_message and self.notified_spam2 is True:
       
       await ping_channel.send(f"{spam_channel.mention} <@862021572026040350> no msg in the channel")
+      self.notified_spam2 = False
     
       
 
@@ -114,3 +114,4 @@ class spam(commands.Cog):
 
 async def setup(bot: commands.Bot):
   await bot.add_cog(spam(bot))
+  

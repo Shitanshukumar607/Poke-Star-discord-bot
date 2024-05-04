@@ -7,7 +7,11 @@ import asyncio
 
 intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix=["!","<@1231616001880231996> " ], intents=intents)
+
+
+
+
 
 @bot.event
 async def on_ready():
@@ -16,70 +20,22 @@ async def on_ready():
 
 
 
-@bot.event
-async def on_message(message):
-
-  # this is when a user catches a new Pokemon 
-  if message.author.id == details.poketwo_id and "You received 35 Pokécoins!" in message.content:
-    await message.add_reaction(details.congrats_emoji)
-    await message.add_reaction(details.charmander_happy)
-  #ends here
 
 
-  # this is when a user incenses its shiny chain
-  if message.author.id == details.poketwo_id and "+1 Shiny chain!" in message.content:
-    await message.add_reaction(details.shiny) 
-  #ends here
+@bot.command()
+async def suggestion(ctx, *, prompt: str):
 
+  owner = bot.get_user(details.my_id)
 
-  # this is when there's a shinn hunter
+  embed = discord.Embed(title="Suggestion", description=prompt)
 
-  if "incense" in message.channel.name.lower():
-
-    if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
-
-      timer = await message.channel.send(embed = details.inc_warn_embed)
-    
-      await asyncio.sleep(9)
-      await timer.delete()
-      await message.channel.send(embed= details.catch_embed)
-
-
-    elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
-    
-      timer = await message.channel.send(embed= details.inc_warn_embed)
-      await asyncio.sleep(9)
-      await timer.delete()
-      await message.channel.send(embed= details.catch_embed)
-
-
-  else:
-
-    
-    if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
-
-      timer = await message.channel.send(embed = details.warn_embed)
-    
-      await asyncio.sleep(25)
-      await timer.delete()
-      await message.channel.send(embed= details.catch_embed)
-
-
-
-    elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
-
-      timer = await message.channel.send(embed= details.warn_embed)
-    
-      await asyncio.sleep(25)
-      await timer.delete()
-      await message.channel.send(embed= details.catch_embed)
-
+  await owner.send(embed=embed)
+  
+  await ctx.send(f"Thank you for your suggestion, {ctx.author.name}! I have received your suggestion and will review it as soon as possible.")
+   
+  
 
   
-  await bot.process_commands(message)
-
-
-
 @bot.command()
 async def hello(ctx):
   await ctx.send("hellow")
