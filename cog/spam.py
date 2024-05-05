@@ -32,7 +32,7 @@ class spam(commands.Cog):
     
 
   
-  @tasks.loop(seconds=10)
+  @tasks.loop(seconds=60)
   async def spammer1(self, spam_channel_id):
     
     spam_channel = self.bot.get_channel(spam_channel_id)
@@ -43,7 +43,7 @@ class spam(commands.Cog):
     async for message in spam_channel.history(limit = 1):
       past_message = message.created_at
 
-    await asyncio.sleep(5)
+    await asyncio.sleep(50)
 
     
     async for message in spam_channel.history(limit = 1):
@@ -68,7 +68,7 @@ class spam(commands.Cog):
 
 
   
-  @tasks.loop(seconds=10)
+  @tasks.loop(seconds=60)
   async def spammer2(self, spam_channel_id):
     
     spam_channel = self.bot.get_channel(spam_channel_id)
@@ -79,7 +79,7 @@ class spam(commands.Cog):
     async for message in spam_channel.history(limit = 1):
       past_message = message.created_at
 
-    await asyncio.sleep(5)
+    await asyncio.sleep(50)
 
     
     async for message in spam_channel.history(limit = 1):
@@ -99,13 +99,13 @@ class spam(commands.Cog):
 
   @commands.Cog.listener()
   async def on_message(self, message):
-    if message.author.id == details.my_id and message.content == "Done1":
+    if message.author.id == details.my_id and message.content == "1":
 
       self.notified_spam1 = True
       await message.channel.send("made it true (1)")
 
     
-    if message.author.id == details.my_id and message.content == "Done2":
+    if message.author.id == details.my_id and message.content == "2":
 
       self.notified_spam2 = True
       await message.channel.send("made it true (2)")
