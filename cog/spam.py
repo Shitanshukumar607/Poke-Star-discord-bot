@@ -1,12 +1,13 @@
 import discord 
 from discord.ext import commands,tasks
-from discord import app_commands
 import asyncio
-import details 
 
 
 past_message = None
 new_message = None
+
+spammer1_id = 1223878867027230735
+spammer2_id = 783543227189297192
 
 
 spam_channel_1 = 1223899187519688734
@@ -49,8 +50,7 @@ class spam(commands.Cog):
     async for message in spam_channel.history(limit = 1):
       new_message = message.created_at
 
-    print(past_message)
-    print(new_message)
+    
 
     if past_message and new_message and past_message == new_message and self.notified_spam1 is True:
       
@@ -85,8 +85,7 @@ class spam(commands.Cog):
     async for message in spam_channel.history(limit = 1):
       new_message = message.created_at
 
-    print(past_message)
-    print(new_message)
+    
 
     if past_message and new_message and past_message == new_message and self.notified_spam2 is True:
       
@@ -99,16 +98,16 @@ class spam(commands.Cog):
 
   @commands.Cog.listener()
   async def on_message(self, message):
-    if message.author.id == details.my_id and message.content == "1":
+    if message.author.id == spammer1_id and self.notified_spam1 is False:
 
       self.notified_spam1 = True
-      await message.channel.send("made it true (1)")
+      await message.channel.send("`self.notified_spam1` is true")
 
     
-    if message.author.id == details.my_id and message.content == "2":
+    if message.author.id == spammer2_id and self.notified_spam2 is False:
 
       self.notified_spam2 = True
-      await message.channel.send("made it true (2)")
+      await message.channel.send("`self.notified_spam2` is true")
 
 
 

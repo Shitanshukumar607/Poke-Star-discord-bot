@@ -1,16 +1,17 @@
 import discord 
 from discord.ext import commands
 from discord import app_commands
+from discord.utils import utcnow
 import details 
 import asyncio
-
+import datetime 
 
 
 class shinyhunt(commands.Cog):
-
   def __init__(self, bot):
     self.bot = bot
-
+    self.last_used: datetime.datetime = None
+  
   @commands.Cog.listener()
   async def on_message(self, message):
 
@@ -31,61 +32,29 @@ class shinyhunt(commands.Cog):
 
   # this is when there's a shinn hunter
 
-    if "incense" in message.channel.name.lower():
-
-      if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
-
-        timer = await message.channel.send(embed = details.inc_warn_embed)
-    
-        await asyncio.sleep(9)
-        await timer.delete()
-        await message.channel.send(embed= details.catch_embed)
-
-
-      elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
-    
-        timer = await message.channel.send(embed= details.inc_warn_embed)
-        await asyncio.sleep(9)
-        await timer.delete()
-        await message.channel.send(embed= details.catch_embed)
-
-
-    else:
+    if message.author.id in details.pokebots and "shiny hunt pings" in message.content.lower() and "incense" in message.channel.name.lower():
+  
+      await self.do_shit(message,details.inc_warn_embed,9)
 
     
-      if message.author.id == details.pokename_id and "shiny hunt pings" in message.content.lower():
+    elif message.author.id in details.pokebots and "shiny hunt pings" in message.content.lower():
+      
+      print("elif")
 
-        timer = await message.channel.send(embed = details.warn_embed)
-    
-        await asyncio.sleep(25)
-        await timer.delete()
-        await message.channel.send(embed= details.catch_embed)
-
-
-
-      elif message.author.id == details.poke2assistant_id and "shiny hunt pings" in message.content.lower():
-
-        timer = await message.channel.send(embed= details.warn_embed)
-    
-        await asyncio.sleep(25)
-        await timer.delete()
-        await message.channel.send(embed= details.catch_embed)
-
+      await self.do_shit(message,details.warn_embed,25)
 
   
-    
 
 
-    
-
-
-
-
-
-
-
-
+  async def do_shit(self, message: discord.Message,embed,time):
+    if self.last_used and (utcnow() - self.last_used).total_seconds() < 2:
+      return # nothing coz 2s cooldown
+    self.last_used = utcnow()
+    timer = await message.channel.send(embed = embed)
+    await asyncio.sleep(time)
+    await timer.delete()
+    await message.channel.send(embed= details.catch_embed)
+  
 async def setup(bot: commands.Bot):
   await bot.add_cog(shinyhunt (bot))
   
-

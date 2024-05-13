@@ -15,11 +15,10 @@ bot = commands.Bot(command_prefix=["P!","<@1231616001880231996> " ], intents=int
 
 @bot.event
 async def on_ready():
-  #await bot.load_extension("cog.spam")
-  #await bot.load_extension("cog.shinyhunt")
+  await bot.load_extension("cog.spam")
+  await bot.load_extension("cog.shinyhunt")
   await bot.load_extension("cog.channel")
-    
-  await bot.tree.sync()
+  await bot.load_extension("cog.error")
   print("bot is READY")
 
 
@@ -38,37 +37,6 @@ async def suggestion(ctx, *, prompt: str):
   await ctx.send(f"Thank you for your suggestion, {ctx.author.name}! I have received your suggestion and will review it as soon as possible.")
    
 
-
-@bot.tree.command()
-async def lock(interaction: discord.Interaction, role: discord.Role):
- 
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = False
-
-    await interaction.channel.set_permissions(role, overwrite=overwrite)
-    await interaction.response.send_message(f"Locked the channel for {role.name}.")
-
-
-
-@bot.tree.command()
-async def unlock(interaction: discord.Interaction, role: discord.Role):
- 
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = True
-
-    await interaction.channel.set_permissions(role, overwrite=overwrite)
-
-    await interaction.response.send_message(f"Unlocked the channel for {role.name}.")
-  
-
-@bot.tree.command()
-async def hide(interaction: discord.Interaction, role: discord.Role):
- 
-    overwrite = discord.PermissionOverwrite()
-    overwrite.view_channel = False
-
-    await interaction.channel.set_permissions(role, overwrite=overwrite)
-    await interaction.response.send_message(f"Hide the channel for {role.name}.")
 
 
 
