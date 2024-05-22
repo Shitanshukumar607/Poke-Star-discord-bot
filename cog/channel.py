@@ -71,7 +71,14 @@ class channel(commands.Cog):
     await ctx.send(f"Unlocked the channel for {role.name}.")
 
 
+  @commands.has_permissions(manage_messages=True)
+  @commands.Cog.listener()
+  async def on_message(self, message):
+    if message.author.id == self.bot.user.id:
+      return
 
+    if message.content.lower() == "vouch":
+      await message.channel.send("Check <#1225030930985390100> and vouch us in <#1239603439420313620>")
 
 
 

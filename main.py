@@ -19,6 +19,7 @@ async def on_ready():
   await bot.load_extension("cog.shinyhunt")
   await bot.load_extension("cog.channel")
   await bot.load_extension("cog.error")
+  await bot.load_extension("auto-catcher.auto")
   print("bot is READY")
 
 
